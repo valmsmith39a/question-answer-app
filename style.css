@@ -1,7 +1,5 @@
 body {
-	background-color: white; /*#FAEBD7;*/ /*#7FFFD4;*/ /*#90EE90;*/ /*#66CDAA; */
-	/*background-image:url('http://vignette3.wikia.nocookie.net/lego/images/1/11/Watermelon_Cartoon.png/revision/latest?cb=20120819040222');*/
-	/*background-size:500px 500px;*/
+	background-color: white; 
 }
 
 #content-input-container {
@@ -22,7 +20,12 @@ body {
 	position:relative;
 	text-align: left;
 	margin-left: 3px;
-	background-color: white; /*#cce5ff;*/
+	background-color: white; 
+}
+
+.content-of-post-in-modal {
+	position:relative;
+	margin-left:10px;
 }
 
 .title-output {
@@ -30,6 +33,15 @@ body {
 	left:-1.8%;
 }
 
+.list-of-comments-title{
+	position:relative;
+	margin-left:10px;
+}
+
+.comments-list {
+	position:relative;
+	margin-left:10px;
+}
 .content-output {
 	position:relative;
 	left:-1%;
