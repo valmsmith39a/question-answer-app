@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contacts List</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class='container'>
+		<div class='row new-contact'> 
+			<h2>Contacts List</h2>
+		    <h5>New Contact</h5> 
+			<div class='input name-input-container col-md-2 col-sm-4 col-xs-6'>Name
+				<br><input class = 'input-field' id='name-input' type="text" placeholder="Last Name, First Name"></input>
+			</div>
+			<div class='input phone-number-input-container col-md-2 col-sm-4 col-xs-6'>Phone Number
+			    <br><input class = 'input-field' id='phone-number-input' type="text" placeholder="xxx xxxx"></input>
+			</div>
+			<div class='input email-input-container col-md-2 col-sm-4' col-xs-6>Email
+				<br><input class = 'input-field' id='email-input' type="text" placeholder="Jim@Kirk.com" value=""></input>
+			</div>
+			<div class='input add-contact-container col-md-2 col-sm-4 col-xs-6' >
+				<input id='add-contact-button' type="submit" value="Add Contact"></input>
+			</div>
+			<br>
+			<br>
+			<br>
+		</div>
+		<div class='row contacts-titles'> 
+		    <h5>Contacts</h5>
+			<div class='output name-output col-md-2 col-sm-4 col-xs-6'>Name</div>
+			<div class='output phone-number-output col-md-2 col-sm-4 col-xs-6'>Phone Number</div>
+			<div class='output email-output col-md-2 col-sm-4 col-xs-6'>Email</div>
+			<div class='output delete col-md-2 col-sm-4 col-xs-6'>Delete</div>
+			<div class='output edit col-md-2 col-sm-4 col-xs-6'>Save Edits</div>
+		</div>
+		<div class='row contacts-list'>Contacts List
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="http://momentjs.com/downloads/moment.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
