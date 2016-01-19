@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Contacts List</title>
+	<title>Question-Answer</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- Optional theme -->
@@ -14,34 +14,98 @@
 <body>
 	<div class='container'>
 		<div class='row new-contact'> 
-			<h2>Contacts List</h2>
-		    <h5>New Contact</h5> 
-			<div class='input name-input-container col-md-2 col-sm-4 col-xs-6'>Name
-				<br><input class = 'input-field' id='name-input' type="text" placeholder="Last Name, First Name"></input>
+			<h2>Question and Answer</h2>
+		    <h5>New Question</h5> 
+			<div class='input date-input-container col-md-2 col-sm-4 col-xs-6'>Date
+				<br><input class = 'input-field' id='date-input' type="text" placeholder="Date"></input>
 			</div>
-			<div class='input phone-number-input-container col-md-2 col-sm-4 col-xs-6'>Phone Number
-			    <br><input class = 'input-field' id='phone-number-input' type="text" placeholder="xxx xxxx"></input>
+			<div class='input phone-number-input-container col-md-2 col-sm-4 col-xs-6'>Title
+			    <br><input class = 'input-field' id='title-input' type="text" placeholder="Title of question"></input>
 			</div>
-			<div class='input email-input-container col-md-2 col-sm-4' col-xs-6>Email
-				<br><input class = 'input-field' id='email-input' type="text" placeholder="Jim@Kirk.com" value=""></input>
+			<div class='input content-input-container col-md-2 col-sm-4' col-xs-6><br><br>Content
+				<br><input class = 'input-field' id='content-input' type="text" placeholder="More information about your question" value=""></input>
 			</div>
-			<div class='input add-contact-container col-md-2 col-sm-4 col-xs-6' >
-				<input id='add-contact-button' type="submit" value="Add Contact"></input>
+			<div class='input add-post-container col-md-2 col-sm-4 col-xs-6' >
+				<input id='add-post-button' type="submit" value="Post"></input>
 			</div>
 			<br>
 			<br>
 			<br>
 		</div>
-		<div class='row contacts-titles'> 
-		    <h5>Contacts</h5>
-			<div class='output name-output col-md-2 col-sm-4 col-xs-6'>Name</div>
-			<div class='output phone-number-output col-md-2 col-sm-4 col-xs-6'>Phone Number</div>
-			<div class='output email-output col-md-2 col-sm-4 col-xs-6'>Email</div>
+		<div class='row post-titles'> 
+		    <h5>Questions Posted</h5>
+			<div class='output date-output col-md-2 col-sm-4 col-xs-6'>Date</div>
+			<div class='output title-output col-md-2 col-sm-4 col-xs-6'>Title</div>
+			<!--
 			<div class='output delete col-md-2 col-sm-4 col-xs-6'>Delete</div>
 			<div class='output edit col-md-2 col-sm-4 col-xs-6'>Save Edits</div>
+			-->
 		</div>
-		<div class='row contacts-list'>Contacts List
+		<div class='row posts-list'>
+
+<!--
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+...more buttons...
+-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Recipient:</label>
+            <input type="text" class="form-control" id="comments">
+          </div>
+        </form>
+      </div>
+      <div class='comments-list'>
+      comments list 
+      	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id='save-comments'class="btn btn-primary">Save Comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+		<!-- Modal
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        Content
+      </div>
+      <div class="modal-body">
+        Comments
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id='save-modal' class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> Modal -->
+
 		</div>
+		
+
+
+
+
+
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="http://momentjs.com/downloads/moment.min.js"></script>

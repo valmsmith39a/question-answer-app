@@ -3,38 +3,63 @@ $(document).ready(init);
 // Only change the DOM when firebase changes 
 
 var ref = new Firebase('https://valtest.firebaseio.com/');
-var contactsRef = ref.child('contacts');
-
-
-
+var postsRef = ref.child('posts');
 var arrayOfRowContainersObjectsG=[];
-var arrayOfContactsObjectsG=[];
-var newContactObjectG; 
+var refIDG; 
 
 function init(){
-	//initializeLocalStorage(); 
-	//updateArrayOfRowContainers();
-	//displayContactsList();
-	$('#add-contact-button').on('click', addContactButton);
-	$('.contacts-list').on('click', '.delete-button', deleteContactButton);
-	$('.contacts-list').on('click', '.edit-button', saveEditsButton);
-
+	$template = $('#template');
+	$('#add-post-button').on('click', addPostsButton);
+	$('.posts-list').on('click', '#details-button', detailsButton);
+	$('#save-comments').on('click', saveModalButton);
+	//$('.contacts-list').on('click', '.delete-button', deleteContactButton);
+	//$('.contacts-list').on('click', '.edit-button', saveEditsButton);
 	//$('.contacts-titles').on('click', '.name-output', sortFields);
-	// $('.contacts-titles').on('click', '.phone-number-output', sortFields);
-	// $('.contacts-titles').on('click', '.email-output', sortFields);
+	//$('.contacts-titles').on('click', '.phone-number-output', sortFields);
+	//$('.contacts-titles').on('click', '.email-output', sortFields);
 }
 
-function addContactButton(){
-	var name=$('#name-input').val();
-  var phoneNumber=$('#phone-number-input').val();
-  var email=$('#email-input').val();
-  var contactObject=initializeNewContactObject(name, phoneNumber, email);
+function saveModalButton(){	
+	var comments = $('#comments').val();
+	var commentsObject = {
+		'comment':comments
+	};
 
-  debugger;
-  console.log('add contact', contactObject);
+	var commentsRefG = postsRef.child(refIDG).child('comments');
+	commentsRefG.push(commentsObject);
+}
 
-  arrayOfContactsObjectsG.push(contactObject);
-  writeToDatabase(contactObject)
+function detailsButton(){
+	refIDG = $(this).closest('.row-container').attr('id');
+
+	var commentsRefG = postsRef.child(refIDG).child('comments');
+
+	commentsRefG.on('value', function(snapshot){
+
+	var commentsArrayOfDOM = [];
+
+	snapshot.forEach(function(childSnap){
+			var post = childSnap.val();			
+			var $comment = $('<div>').text(post.comment);
+			
+			commentsArrayOfDOM.push($comment);
+			
+		});
+
+	$('.comments-list').empty();
+	$('.comments-list').append(commentsArrayOfDOM);
+	$('#myModal').modal();
+  });
+}
+
+function addPostsButton(){
+	var date=$('#date-input').val();
+  var title=$('#title-input').val();
+  var content=$('#content-input').val();
+  var postObject=initializeNewPostObject(date, title, content);
+  
+  writeToDatabase(postObject)
+  //arrayOfPostObjectsG.push(contactObject);
   //saveToLocalStorage(arrayOfContactsObjectsG);
   //updateArrayOfRowContainers();
   //displayContactsList();
@@ -44,10 +69,10 @@ function deleteContactButton(){
 	var indexOfElementToRemove = $(this).closest('.row-container').index();
 
 	console.log('referenceID is:', referenceID);
-	console.log('contacts ref', contactsRef.child(referenceID));
+	console.log('contacts ref', postsRef.child(referenceID));
 
 	var refID = $(this).closest('.row-container').attr('id');
-	contactsRef.child(refID).remove();
+	postsRef.child(refID).remove();
 
 
 	//arrayOfContactsObjectsG.splice(indexOfElementToRemove,1);
@@ -63,7 +88,6 @@ function saveEditsButton(){
 	// Update array of row containers 
 	// Save to local storage
 	var indexOfElementEdited = $(this).closest('.row-container').index();
-	debugger;
 	console.log('index:', indexOfElementEdited);
   var contact = $(this).closest('.row-container'); 
 	var name = contact.find('.name-col').text();
@@ -76,16 +100,13 @@ function saveEditsButton(){
 	}
 	var refID = $(this).closest('.row-container').attr('id');
 
-  contactsRef.child(refID).update({ name: 'Fred', phoneNumber: 'Flintstone'});
+  postsRef.child(refID).update({ name: 'Fred', phoneNumber: 'Flintstone'});
 
   // if want to just read just 1 time use .once()
-    contactsRef.child(refID).once('value', function(snap){
+    postsRef.child(refID).once('value', function(snap){
     	console.log(snap.val());
-    	debugger;
     })
 
-
-  debugger
 	//writeToDatabase(editedContactObject);
 	//arrayOfContactsObjectsG.splice(indexOfElementEdited, 1, editedContactObject);
 	//updateArrayOfRowContainers();
@@ -93,83 +114,74 @@ function saveEditsButton(){
 	//displayContactsList();
 }
 
-function writeToDatabase(contactObject){
+var commentsRefG;
+
+/*
+function writeToCommentsDatabase(commentsObject){
 
 	var refID = $(this).closest('.row-container').attr('id');
+	var commentsRefG = postsRef.child(refID).child('comments');
+	commentsRefG.push(commentsObject);
+	commentsRefG.push(commentsObject);
+}
+*/
 
-
-
-	contactsRef.push(contactObject);
-	debugger;
+function writeToDatabase(postObject){
+	postsRef.push(postObject);
 }
 
-function initializeNewContactObject(name, phoneNumber, email){
-	newContactObjectG={
-		"name":name,
-		"phoneNumber":phoneNumber,
-		"email":email
+function initializeNewPostObject(date, title , content){
+	newPostObjectG={
+		"date":date,
+		"title":title,
+		"content":content
 	};
-	return newContactObjectG; 
+	return newPostObjectG; 
 }
 
 var referenceID;
+/*
+commentsRefG.on('value', function(snapshot){
+console.log('inside comments');
+console.log('snapshot is: ', snapshot.val());
+debugger;
 
-contactsRef.on('value', function(snapshot){
-	debugger;
-	console.log('inside firebase ref.on');
-	console.log('snapshot is:', snapshot.val());
+snapshot.forEach(function(childSnap){
 
+$commentsContainer = $('<div>').text('comments container');
 
+$('.comments-list').append($commentsContainer);
+
+debugger;
+
+});
+});
+*/
+
+postsRef.on('value', function(snapshot){
 	snapshot.forEach(function(childSnap){
-			var contact = childSnap.val();
+			var post = childSnap.val();
 			referenceID = childSnap.key();
-			console.log('key is', referenceID);
-			console.log('the child snap is', contact);
-			contactsRef.child(referenceID);
-			//contactsRef.child(referenceID).remove();
+			postsRef.child(referenceID);
 
 			var $rowContainer = $('<div>').addClass('row row-container');
 			$rowContainer.attr('id', referenceID);
 			console.log($rowContainer);
-			debugger
-			var $nameColumn = $('<div>').addClass('name-col col-md-2 col-sm-4 col-xs-6').text(contact.name).attr('contenteditable', true);
-    	var $deleteButton = $('<div>').addClass('delete-button col-md-2 col-sm-4 col-xs-6');
+			var $dateColumn = $('<div>').addClass('date-col col-md-2 col-sm-4 col-xs-6').text(post.date).attr('contenteditable', true);
+    	$rowContainer.append($dateColumn); 
+    	var $titleColumn = $('<div>').addClass('title-col col-md-2 col-sm-4 col-xs-6').text(post.title).attr('contenteditable', true);
+			$rowContainer.append($titleColumn);
+			var $contentColumn = $('<div>').addClass('title-col col-md-2 col-sm-4 col-xs-6').text(post.content).attr('contenteditable', true);
+			$rowContainer.append($contentColumn);
+			var $detailsButton = $('<button>').addClass('btn btn-primary btn-sm').attr('data-toggle', 'modal').attr('data-target', 'myModal').attr('id', 'details-button').text('Details');
 
-    	var $deleteIcon = $('<i>').addClass('fa fa-trash');
-    	$deleteButton.append($deleteIcon);
-    	$rowContainer.append($deleteButton);
-    	$rowContainer.append($nameColumn); 
-
-var $editButton = $('<div>').addClass('edit-button col-md-2 col-sm-4 col-xs-6');
-    var $editIcon = $('<i>').addClass('fa fa-floppy-o');
-    $editButton.append($editIcon);
-    $rowContainer.append($editButton);
+     	$rowContainer.append($detailsButton);
 
     	arrayOfRowContainersObjectsG.push($rowContainer);
 
-    	$('.contacts-list').append(arrayOfRowContainersObjectsG);
+    	$('.posts-list').append(arrayOfRowContainersObjectsG);
 			$('.input-field').val('');  // Clears all the input fields
-
-
-			debugger;
 	});
-  
-	// to delete: 
-	// get id so can go back later to delete 
-	// get the firebase id of the contact 
-
-
-
-	//var contactsObject = snapshot.val(); 
-
-
-	//console.log('contacts object is: ', contactsObject);
-
-	//var contact = snapshot.val().getValue(0);
-	//console.log('contact is:', contact);
-	debugger
-
-
 });
 
 function updateArrayOfRowContainers(){

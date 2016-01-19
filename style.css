@@ -1,10 +1,16 @@
 body {
-	background-color: #90EE90; /*#FAEBD7;*/ /*#7FFFD4;*/ /*#90EE90;*/ /*#66CDAA; */
+	background-color: white; /*#FAEBD7;*/ /*#7FFFD4;*/ /*#90EE90;*/ /*#66CDAA; */
 	/*background-image:url('http://vignette3.wikia.nocookie.net/lego/images/1/11/Watermelon_Cartoon.png/revision/latest?cb=20120819040222');*/
 	/*background-size:500px 500px;*/
 }
 
-#add-contact-button {
+#content-input-container {
+	position:relative;
+	left:0px;
+
+}
+
+#add-post-button {
 	position:relative;
 	margin-top:10%;
 	background-color:yellow;
@@ -16,15 +22,15 @@ body {
 	position:relative;
 	text-align: left;
 	margin-left: 3px;
-	background-color: #cce5ff;
+	background-color: white; /*#cce5ff;*/
 }
 
-.name-output {
+.title-output {
 	position:relative;
 	left:-1.8%;
 }
 
-.phone-number-output, .email-output {
+.content-output {
 	position:relative;
 	left:-1%;
 }
