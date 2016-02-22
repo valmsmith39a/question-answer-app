@@ -1,14 +1,11 @@
 $(document).ready(init);
-
-// Only change the DOM when firebase changes 
-
 var ref = new Firebase('https://valtest.firebaseio.com/');
 var postsRef = ref.child('posts');
 var arrayOfRowContainersObjectsG=[];
 var refIDG; 
-
 var NowMoment = moment();
-
+var commentsRefG;
+var referenceID;
 
 function init(){
 	$template = $('#template');
@@ -16,6 +13,14 @@ function init(){
 	$('.posts-list').on('click', '#details-button', detailsButton);
 	$('#save-comments').on('click', saveModalButton);
 	$('#date-input').val(NowMoment.format('YYYY-M-D'));
+	$('.close-modal').on('click', closeModalButton));
+}
+
+function closeModalButton(){	
+	// be sure to turn off the listener 
+	// Get key var currentKey = 
+	// questionRef.child(currentKey).off();
+	// postsRef.child(refID).child('comments').off();
 }
 
 function saveModalButton(){	
@@ -29,18 +34,13 @@ function saveModalButton(){
 	$('#comments').val('');
 }
 
-function detailsButton(){
-
-	// Gets the text of the title from the row container in DOM
+function detailsButton() {
 	var titleOfPost = $(this).closest('.row-container').find('#title-of-post').text();
 	var contentOfPost = $(this).closest('.row-container').find('#content-of-post').text();
 	var dateOfPost = $(this).closest('.row-container').find('#date-of-post').text();
 
-	// Displays text in title section of modal
 	$('#title-of-post-in-modal').text('Title: '+ titleOfPost);
-
 	$('.content-of-post-in-modal').text('Content: '+ contentOfPost);
-
 	$('.date-in-modal').text(dateOfPost);
 
 	// Get ID of post in Firebase, which is stored in each row in DOM. 
@@ -50,7 +50,6 @@ function detailsButton(){
 
 	// Get the comments associated with that post 
 	commentsRefG.on('value', function(snapshot){
-
 		var commentsArrayOfDOM = [];
 
 		snapshot.forEach(function(childSnap){
@@ -75,9 +74,6 @@ function addPostsButton(){
   writeToDatabase(postObject)
 }
 
-var commentsRefG;
-
-
 function writeToDatabase(postObject){
 	postsRef.push(postObject);
 }
@@ -90,8 +86,6 @@ function initializeNewPostObject(date, title , content){
 	};
 	return newPostObjectG; 
 }
-
-var referenceID;
 
 postsRef.on('value', function(snapshot){
 	arrayOfRowContainersObjectsG.splice(0, arrayOfRowContainersObjectsG.length);
@@ -117,7 +111,6 @@ postsRef.on('value', function(snapshot){
 
 	$('.posts-list').empty();  	
 	$('.posts-list').append(arrayOfRowContainersObjectsG);
-	//$('.input-field').val('');  // Clears all the input fields
 	$('.title-input').val('');
 	$('.content-input').val('');
 });
